@@ -1,14 +1,39 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Button,
+} from "react-native";
+import { useLayoutEffect } from "react";
 import List from "../components/Layout/List";
 import Subtitle from "../components/Layout/Subtitle";
 import MealDetail from "../components/MealDetail";
+import IconButton from "../components/Layout/IconButton";
 import { MEALS } from "../data/dummy-data";
-const MealDetailScreen = ({ route }) => {
+const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const headerButtonPressHandler = () => {
+    console.log("Pressed");
+  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <IconButton
+            icon="star"
+            color="white"
+            onPress={headerButtonPressHandler}
+          />
+        );
+      },
+    });
+  }, [navigation, headerButtonPressHandler]);
   return (
-    <ScrollView >
+    <ScrollView>
       <View style={styles.rootContainer}>
         <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
         <Text style={styles.title}>{selectedMeal.title}</Text>
@@ -35,13 +60,13 @@ export default MealDetailScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     marginBottom: 32,
-    justifyContent:"center",
-    alignItems:"center"
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: "100%",
     height: 350,
-    borderRadius:10,
+    borderRadius: 10,
   },
   title: {
     fontWeight: "bold",
