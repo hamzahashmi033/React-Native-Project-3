@@ -1,9 +1,9 @@
 import { View, Text, Pressable, StyleSheet,Platform } from "react-native";
 
-const CategoryGridList = ({ title, color }) => {
+const CategoryGridList = ({ title, color, onPress }) => {
   return (
     <View style={[styles.rootContainer, {backgroundColor:color}]}>
-      <Pressable android_ripple={{color:"#ccc"}} style={styles.button}>
+      <Pressable android_ripple={{color:"#ccc"}} style={styles.button} onPress={onPress}>
         <View style={styles.childContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
@@ -16,8 +16,8 @@ export default CategoryGridList;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    margin:16,
-    height: 150,
+    margin:10,
+    height: 160,
     borderRadius: 8,
     elevation: 4,
     shadowColor: "lightgrey",
