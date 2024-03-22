@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Button,
-} from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { useContext, useLayoutEffect } from "react";
 import List from "../components/Layout/List";
 import Subtitle from "../components/Layout/Subtitle";
@@ -13,16 +6,25 @@ import MealDetail from "../components/MealDetail";
 import IconButton from "../components/Layout/IconButton";
 import { MEALS } from "../data/dummy-data";
 import { FavoritesContext } from "../store/context/favorites-context";
+import { UseSelector, useDispatch, useSelector } from "react-redux";
+import { addToFavorites, removeToFavorotes } from "../store/redux/Favorites";
 const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params.mealId;
-  const favoriteMealsCtx = useContext(FavoritesContext);
-  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+  // const favoriteMealsCtx = useContext(FavoritesContext);
+  const favoriteMeals = useSelector((state) => state.favoritesReducer.ids);
+  const dispatch = useDispatch();
+  // const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+  const mealIsFavorite = favoriteMeals.includes(mealId);
+
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
   const changeFavoritesStatusHandler = () => {
     if (mealIsFavorite) {
-      favoriteMealsCtx.removeFavorites(mealId)
-    }else{
-      favoriteMealsCtx.addFavorites(mealId)
+      // favoriteMealsCtx.removeFavorites(mealId)
+      dispatch(removeToFavorotes({ id: mealId }));
+    } else {
+      // favoriteMealsCtx.addFavorites(mealId)
+      dispatch(addToFavorites({ id: mealId }));
     }
   };
   useLayoutEffect(() => {
