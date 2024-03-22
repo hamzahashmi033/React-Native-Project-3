@@ -17,7 +17,7 @@ const MealItems = ({
 }) => {
   const navigation = useNavigation();
   function selectMealItemHandler() {
-    navigation.navigate('MealDetail', {
+    navigation.navigate("MealDetail", {
       mealId: id,
     });
   }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
-    color:"#ccc"
+    color: "#ccc",
   },
   buttonPressed: {
     opacity: 0.5,
